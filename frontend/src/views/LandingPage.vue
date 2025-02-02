@@ -4,15 +4,23 @@
         <p>This is the landing page.</p>
         <leaderboard-summary/>    
     </div>
+
+    <div>
+        <task-list/>
+    </div>
+
+    <div>
+        <parent-component/>
+    </div>
 </template>
 
 <script>
     import LeaderboardSummary from '../components/LeaderboardSummary.vue';
-
+    
     export default {
         name: 'LandingPage',
         components: {
-            LeaderboardSummary
+            LeaderboardSummary,
         }
     }
 </script>

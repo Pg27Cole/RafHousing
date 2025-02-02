@@ -2,8 +2,10 @@
  <div id="app">
   <header>
     <nav>
-      <router-link to="/">Home</router-link>
-      <router-link to="/about">About</router-link>
+      <router-link to="/" class="link">Home</router-link>
+      <router-link to="/about"class="link">About</router-link>
+      <router-link to="/contact" class="link">Contact</router-link>
+      <router-link to="/leaderboard" class="link">Leaderboard</router-link>
     </nav>
   </header>
   <main>
@@ -15,10 +17,33 @@
 <script>
   export default {
     name: 'App',
-    
   }
 </script>
 
-<style>
+<style scoped>
+  * {
+      margin: 5px;
+    }
+
+    header {
+      margin: 0px 20%;
+    }
+
+    nav {
+      border: 1px solid black;
+      border-radius: 8px;
+      padding: 5px;
+    }
+
+    
+    .link {
+      transition: all ease-in-out 0.25s;
+      padding: 0px;
+    }
+    
+    .link:hover {
+      padding: 5px;
+    }
+
 
 </style>
