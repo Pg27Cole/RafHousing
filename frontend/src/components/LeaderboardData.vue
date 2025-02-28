@@ -8,7 +8,7 @@
             },
             playerScoreProp: {
                 type: Number,
-                requried: true
+                requried: false
             }
         },
         mounted() {
@@ -22,26 +22,34 @@
 </script>
 
 <template>
-    <td id="user" @click="goToUser" @mouseover="showNavigation">{{ this.playerNameProp }}</td>
+    <td id="user" @click="goToUser">{{ this.playerNameProp }}</td>
     <td id="score">{{ this.playerScoreProp }}</td>
 </template>
 
 <style scoped>
 
 td {
+    font-size: 1vw;
     transition: all 0.05s ease-in-out;
-    margin: 20px;
-    padding: 20px;
+}
+
+#user {
+    width: 10vw;
+    height: 2vw;
+    margin: 0px;
+    padding: 0px;
 }
 
 #user:hover {
     color: blue;
-    transform: scale(1.25);
+    cursor: pointer;
 }
 
 #score {
+    width: 10vw;
     border-left: 1px solid white;
-    color: lightblue;
+    color: rgb(77, 131, 77);
+    padding: 2vw;
 }
 
 </style>

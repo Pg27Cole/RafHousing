@@ -21,17 +21,27 @@
 </script>
 
 <style scoped>
-  * {
-      margin: 5px;
+
+.link {
+    font-size: 2vw;
+    margin: 1vw;
+  }
+
+
+
+  @media not screen and (max-width: 850px) {
+      .link {
+        font-size: 1vw;
+      }
     }
 
     header {
-      margin: 0px 20%;
+      margin: 0vw;
     }
 
     nav {
       border: 1px solid black;
-      border-radius: 8px;
+      border-radius: 1vh;
       padding: 5px;
     }
 

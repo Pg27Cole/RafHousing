@@ -1,5 +1,9 @@
 <script>
+import { ref } from 'vue';
+import { useUserStore } from '../stores/UserStore.js'
 import InputComponent from '../components/InputComponent.vue'
+
+
 export default {
     components: {
         InputComponent
@@ -7,7 +11,9 @@ export default {
     data() {
         return {
             Feedback: '',
-            Error: ''
+            Error: '',
+            userStore: useUserStore(),
+            email: ref('')
         }
     },
     methods: {
@@ -26,7 +32,17 @@ export default {
             catch (err) {
                 this.errorMessage = err.message;
             }
-        }
+        },
+        async handleLogin() {
+            try {
+                await this.userStore.login(this.email);
+            } catch(error) {
+                alert(error.message);
+            }
+        },
+        logout() {
+            this.userStore.logout();
+        },
     }
 }
 
@@ -34,10 +50,27 @@ export default {
 
 <template>
     <div>
-        <h1>Contact:</h1>
-        <h3>Feedback:</h3>
-        <input-component @sendToServer="sendToServer"/>
-        <p>{{ errorMessage }}</p>
+        <div v-if="!userStore.user">
+            <h1>
+                Login:
+            </h1>
+            <input v-model="email"
+                    type="email"
+                    placeholder="Enter your Email"
+            />
+            <button @click="handleLogin">Login</button>
+        </div>
+        <div v-else>
+            <h1>Welcome, {{ userStore.user.username }}</h1>
+            <p>Email: {{ userStore.user.email }}</p>
+            <div>
+                <h1>Contact:</h1>
+                <h3>Feedback:</h3>
+                <input-component @sendToServer="sendToServer"/>
+                <p>{{ errorMessage }}</p>
+            </div>
+            <button @click="logout">Logout</button>
+        </div>
     </div>
 </template>
 

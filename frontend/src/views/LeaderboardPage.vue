@@ -1,33 +1,13 @@
-<script>
+<script setup>
+    import { useLeaderboardStore } from '../stores/LeaderboardStore';
     import LeaderboardData from '../components/LeaderboardData.vue';
-    export default {
-        name: 'LeaderboardPage',
-        components: {
-            LeaderboardData
-        },
-        data() {
-            return {
+    import { onMounted } from 'vue';
 
-                leaderboardData: [],
-                errorMessage: ''
-            }
-        },
-        mounted() {
-            this.fetchLeaderboardData()
-        },
-        methods: {
-            async fetchLeaderboardData() {
-                try {
-                    const res = await fetch('/api/leaderboard-summary');
-                    if(!res.ok) throw new Error(`server returned stats ${res.status}`);
-                    const data = await res.json();
-                    this.leaderboardData = data;
-                } catch (err) {
-                    this.errorMessage = err.message;
-                }
-            }
-        }
-    }
+    const leaderboardStore = useLeaderboardStore();
+
+    onMounted((() =>{
+        leaderboardStore.leaderboardData = leaderboardStore.fetchLeaderboard(10);
+    }))
 </script>
 
 <template>
@@ -35,8 +15,8 @@
         <h1>Leaderboard:</h1>
         <table>
             <tbody>
-                <tr v-for="(item, index) in leaderboardData" :key="index">
-                    <leaderboard-data :playerNameProp="item.player", :playerScoreProp="item.score"/>
+                <tr v-for="(item, index) in leaderboardStore.leaderboardData" :key="index">
+                    <leaderboard-data :playerNameProp="item.player_name", :playerScoreProp="item.score"/>
                 </tr>
             </tbody>
         </table>
@@ -64,7 +44,7 @@ table {
 tbody {
     display: flex;
     width: 650px;
-    flex-flow: wrap;
+    flex-flow: column;
     justify-content: center;
 }
 
